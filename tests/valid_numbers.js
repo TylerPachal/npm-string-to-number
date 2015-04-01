@@ -105,4 +105,25 @@ describe('#convert - features with larger number', function() {
 	it('seventeen million to 17000000', function() { 
 		expect(module.convert('seventeen million')).to.equal(17000000);
 	});
+	it('three hundred and sixty nine billion to 369000000000', function() { 
+		expect(module.convert('three hundred and sixty nine billion')).to.equal(369000000000);
+	});
+	it('seven hundred and ninety nine billion five hundred thirty two million six hundred thousand and seven to 799532600007', function() { 
+		expect(module.convert('seven hundred and ninety nine billion five hundred thirty two million six hundred thousand and seven')).to.equal(799532600007);
+	});
+});
+
+describe('#convert - negative numbers', function() {
+	it('negative seven hundred and twenty-two to -722', function() { 
+		expect(module.convert('negative seven hundred and twenty-two')).to.equal(-722);
+	});
+	it('minus seven hundred and thirty three to -733', function() { 
+		expect(module.convert('minus seven hundred and thirty three')).to.equal(-733);
+	});
+});
+
+describe('#convert - random tests', function() {
+	it('seven hundred to 700', function() { 
+		expect(module.convert('seven hundred')).to.equal(700);
+	});
 });

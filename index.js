@@ -41,10 +41,22 @@ var string_to_number = (function() {
 
 	string_to_number.prototype.convert = function(text){
 		var value = 0;
+		var negation = 1;
 
-		// Clean and group the text
-		var cleaned = this._clean(text);
-		var groups = this._split_and_group(cleaned);
+		// Clean the text
+		var cleaned_string = this._clean(text);
+
+		// Split into list
+		var cleaned_list = cleaned_string.split(' ');
+
+		// Check for a negative number
+		if(cleaned_list.indexOf('minus') === 0 || cleaned_list.indexOf('negative') === 0){
+			negation = -1;
+			cleaned_list = cleaned_list.slice(1, cleaned_list.length);
+		}
+
+		// Group into units
+		var groups = this._group(cleaned_list);
 
 		// Go through the units in descending order and look to see what we have
 		for(var i = 0; i < this.units_desc.length; i++){
@@ -55,6 +67,11 @@ var string_to_number = (function() {
 			// Check to see if this key (thousand, million, etc) is in the group from the text
 			var group = groups[key];
 			if(group){
+
+				// This handles the case where someone says 'one thousand million', which is invalid
+				if(group.length < 1){
+					return undefined;
+				}
 
 				// Grab the hundred
 				var hundred = this._hundred(group);
@@ -69,14 +86,25 @@ var string_to_number = (function() {
 				value  += hundred * Math.pow(10, num_zeroes);
 			}
 		}
-		return value;
+		return value * negation;
 	}
 
 	string_to_number.prototype._hundred = function(list){
 		var value = 0;
 
+		// There should only be one value for each of these spots
+		var hundred = false;
+		var tens = false;
+		var ones = false;
+
 		// Check to see if hundred is here
 		var hundred_index = list.indexOf('hundred');
+
+		// If the hundred is the first spot of the array this is an error (we need somethign like two hundred, not just hundred)
+		if(hundred_index === 0){
+			value += undefined;
+		}
+
 		if(hundred_index > 0){
 			value += 100 * this.numbers[list[hundred_index-1]];
 		}
@@ -86,7 +114,39 @@ var string_to_number = (function() {
 
 		// Go over the rest of the numbers and add them to the value
 		for(var i = start; i < list.length; i++){
-			value += this.numbers[list[i]];
+			var val = this.numbers[list[i]];
+			
+			// There should only be one value for the ones spot (i.e. three five is an invalid number)
+			if(val >= 0 && val <= 9){
+				if(ones === true){
+					val = undefined;
+				}
+				else{
+					ones = true;
+				}
+			}
+
+			// There should only be one value for the ones spot (i.e. seventeen three is an invalid number)
+			else if(val >= 10 && val <= 19){
+				if(ones === true || tens === true){
+					val = undefined;
+				}
+				else{
+					ones = true;
+					tens = true;
+				}
+			}
+
+			// No one should be able to say something like seven forty or fifty thirty
+			else if(val >= 20){
+				if(ones === true || tens === true){
+					val = undefined;
+				}
+				else{
+					tens = true;
+				}
+			}
+			value += val;
 		}
 
 		return (isNaN(value) ? undefined : value);
@@ -100,9 +160,8 @@ var string_to_number = (function() {
 		return text.replace(/-/g, ' ').replace(/\sand\s/g, ' ').replace(/\s\s+/g, ' ').toLowerCase();
 	}
 
-	string_to_number.prototype._split_and_group = function(text){
+	string_to_number.prototype._group = function(texts){
 		var groups = {};
-		var texts = text.split(' ');
 
 		// Group words into their units (millions, thousands, etc)
 		// Start from the beginning, and look for a unit
