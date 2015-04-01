@@ -38,3 +38,10 @@ s2n.convert('ten point two');
 // Also invalid
 s2n.convert('half a million');
 // Output: undefined
+```
+
+## Download
+
+Install using Node Package Manager (`npm`):
+
+    npm install string-to-number
