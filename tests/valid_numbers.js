@@ -126,4 +126,18 @@ describe('#convert - random tests', function() {
 	it('seven hundred to 700', function() { 
 		expect(module.convert('seven hundred')).to.equal(700);
 	});
+
+	it('negative six hundred eighty three to -683', function() { 
+		expect(module.convert('negative six hundred eighty three')).to.equal(-683);
+	});
+
+	it('three-hundred-thousand to 300000', function() { 
+		expect(module.convert('three-hundred-thousand')).to.equal(300000);
+	});
+
+	it('three hundred thousand and forty two to 300042', function() { 
+		expect(module.convert('three hundred thousand and forty two')).to.equal(300042);
+	});
+
+
 });

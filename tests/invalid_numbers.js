@@ -76,4 +76,12 @@ describe('#convert - invalid numbers', function() {
 	it('three million negative hundred thousand', function() {
 		expect(module.convert('three million negative hundred thousand')).to.equal(undefined);
 	});
+
+	it('ten point two', function() {
+		expect(module.convert('ten point two')).to.equal(undefined);
+	});
+
+	it('half a million', function() {
+		expect(module.convert('half a million')).to.equal(undefined);
+	});
 });
