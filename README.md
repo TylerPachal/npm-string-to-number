@@ -4,34 +4,37 @@ This is an npm module for converting string representations of numbers to number
 ## Examples
 
 ```javascript
+var string_to_number = require('string-to-number');
+var s2n = new string_to_number();
+
 // Simple example
-string_to_number.convert('seven hundred');
+s2n.convert('seven hundred');
 // Output: 700
 
 // Works with negatives
-string_to_number.convert('negative six hundred eighty three');
+s2n.convert('negative six hundred eighty three');
 // Output: -683
 
 // Works with dashes
-string_to_number.convert('three-hundred-thousand');
+s2n.convert('three-hundred-thousand');
 // Output: 300000
 
 // Works with ands
-string_to_number.convert('three-hundred thousand and forty two');
+s2n.convert('three-hundred thousand and forty two');
 // Output: 300042
 
 // A bigger number
-string_to_number.convert('seven hundred and ninety nine billion five hundred thirty two million six hundred thousand and seven');
+s2n.convert('seven hundred and ninety nine billion five hundred thirty two million six hundred thousand and seven');
 // Output: 799532600007
 
 // Invlaid numbers return undefined
-string_to_number.convert('ten gazillion');
+s2n.convert('ten gazillion');
 // Output: undefined
 
 // Only supports whole numbers
-string_to_number.convert('ten point two');
+s2n.convert('ten point two');
 // Output: undefined
 
 // Also invalid
-string_to_number.convert('half a million');
+s2n.convert('half a million');
 // Output: undefined
