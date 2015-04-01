@@ -60,4 +60,20 @@ describe('#convert - invalid numbers', function() {
 	it('ten gazillion', function() {
 		expect(module.convert('ten gazillion')).to.equal(undefined);
 	});
+
+	it('ten and a half thousand', function() {
+		expect(module.convert('ten and a half thousand')).to.equal(undefined);
+	});
+
+	it('negative negtive ten', function() {
+		expect(module.convert('negative negtive ten')).to.equal(undefined);
+	});
+
+	it('ten negative', function() {
+		expect(module.convert('negative negtive ten')).to.equal(undefined);
+	});
+
+	it('three million negative hundred thousand', function() {
+		expect(module.convert('three million negative hundred thousand')).to.equal(undefined);
+	});
 });
