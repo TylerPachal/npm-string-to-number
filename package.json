@@ -1,0 +1,28 @@
+{
+  "name": "string-to-number",
+  "version": "1.0.0",
+  "description": "Module for converting string representations of numbers, to their numerical value.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/ --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TylerPachal/npm-string-to-number.git"
+  },
+  "keywords": [
+    "String",
+    "Number",
+    "Convert"
+  ],
+  "author": "Tyler Pachal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TylerPachal/npm-string-to-number/issues"
+  },
+  "homepage": "https://github.com/TylerPachal/npm-string-to-number",
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "mocha": "^2.2.1"
+  }
+}
