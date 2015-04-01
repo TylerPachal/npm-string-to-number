@@ -1,6 +1,6 @@
 {
   "name": "string-to-number",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Module for converting string representations of numbers, to their numerical value.",
   "main": "index.js",
   "scripts": {
